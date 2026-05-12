@@ -1,12 +1,14 @@
 import path from 'path'
 import {cursos} from '../models/modelCurso.js'
+import {v4 as uuid} from 'uuid'
 
+const cursos = lerCursos()
 
-// Função cadastrar cursos
- export const cadastrarCurso= (req,res) => {
+// Função cadastrar cursos 1
+export const cadastrarCurso= (req,res) => {
     res.sendFile(path.resolve(''))
- }
-// Função criando curso 
+}
+// Função criando curso 1
 export const criarCurso= (req,res) => {
 
     routerCurso.post('/curso', (req, res) => {  
@@ -19,14 +21,13 @@ export const criarCurso= (req,res) => {
    res.status(200).json({mensagem: 'Dados enviados!', cursoNovo})
 })
 }
-
-// Função listar cursos
+// Função listar cursos 1
 export function listarCursos(req,res) {
     
     res.status(200).json(cursos)
 }
 
-// Função buscar cursos
+// Função buscar cursos 1
 export const buscarCursos = (req, res) => {
     const cursoEncontrado = cursos.find(c => c.curso === req.params.curso)
 
@@ -37,7 +38,7 @@ export const buscarCursos = (req, res) => {
     res.status(200).json({mensagem: 'Curso Encontrado: ', cursoEncontrado})
 }
 
-// Função atualizar um dado expercífico Curso 
+// Função atualizar um dado expercífico Curso 1
 export const atualizarCurso = (req,res) =>{
 
     routerCurso.patch('/curso/:cod', (req, res) => {
@@ -69,30 +70,37 @@ export const atualizarCurso = (req,res) =>{
 })
 }
 
-// Função atulizar todos os dados
-export const atualizarDados = (req, res) => {
+// Função atulizar todos os dados 1
+export const alterarCurso = (req, res) => {
     const cursoEncontrado = cursos.find(c => c.cod === req.params.cod)
 
     if(!cursoEncontrado){
-      return res.status(500).json({mensagem: 'Curso não encontrado!'})
+      return res.status(400).json({mensagem: 'Curso não encontrado!'})
     }
 
     const {cod, curso, ch, tipo} = req.body
 
-    if(!curso || !ch || !tipo) {
-        return res.status(400).json({mensagem: 'Preencha todos os dados!'})
+    if (curso !== undefined && curso !== null && curso !== '') {
+        cursoEncontrado.curso = curso
+    }
+    if (ch !== undefined && ch !== null && ch !== '') {
+        cursoEncontrado.ch = Number(ch) 
+    }
+    if (tipo !== undefined && tipo !== null && tipo !=='') {
+        cursoEncontrado.tipo = tipo
     }
 
-    cursoEncontrado.curso = curso
-    cursoEncontrado.ch = ch
-    cursoEncontrado.tipo = tipo  
-    
-    const cursoAtual = {cod, curso, ch, tipo}
+    const cursoAtual = {
+    cod: cod,    
+    curso: cursoEncontrado.curso,
+    ch: cursoEncontrado.ch,
+    tipo: cursoEncontrado.tipo
+    }  
 
     res.status(200).json({mensagem: 'Curso Encontrado: ', cursoAtual})
 }
 
-// Função Remover cursos
+// Função Remover cursos 1
 export const removerCurso = (req, res) => {
      const cursoEncontrado = cursos.findIndex(c => c.cod === req.params.cod)
 
