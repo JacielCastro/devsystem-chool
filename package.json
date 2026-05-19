@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -19,10 +21,13 @@
   },
   "homepage": "https://github.com/JacielCastro/devsystem-chool#readme",
   "dependencies": {
+    "cors": "^2.8.6",
     "ejs": "^5.0.2",
     "express": "^5.2.1",
     "mysql2": "^3.22.3",
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "sequelize": "^6.37.8",
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "dotenv": "^17.4.2",

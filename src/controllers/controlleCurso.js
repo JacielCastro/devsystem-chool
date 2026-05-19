@@ -1,5 +1,5 @@
 import path from 'path'
-import {cursos} from '../models/modelCurso.js'
+import {lerCursos, salvarCurso} from '../models/modelCurso.js'
 import {v4 as uuid} from 'uuid'
 
 const cursos = lerCursos()

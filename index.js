@@ -3,15 +3,19 @@ import routerCurso from './src/routers/routerCurso.js'
 import path from 'path'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
+import bdCenexao from './src/config/database.js'
 
 const app = express() // UTILIZANDO O EXPRESS
+
+const PORT = process.env.PORT || 3000
+const HOST = process.env.HOST || 'localhost'
 
 dotenv.config()
 
 app.use(express.json()) // middleware para fazer o parsear JSON  no corpo da requisições
 app.use(express.urlencoded({extended: true})) // middleware para fazer o parsear dados de formularios ()
 app.use('/curso', routerCurso) // USANDO AS ROTAS DE CURSO HTTP://LOCALHOST:3000/CURSO/ENDEREÇO_DA_ROTA 
-app.use(morgan(com))
+app.use(morgan('dev'))
 
 
 

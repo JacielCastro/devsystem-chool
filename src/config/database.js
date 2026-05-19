@@ -2,7 +2,7 @@ import mysql from 'mysql2'
 import dotenv from 'dotenv'
 
 const bdCenexao = mysql.createConnection({
-    host: 'local',
+    host: 'localhost',
     port: 3306,
     user: 'root',
     password: 'BemVindo!',
