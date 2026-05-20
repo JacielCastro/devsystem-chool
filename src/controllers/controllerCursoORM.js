@@ -1,29 +1,19 @@
 import path from "path"
-import bdConexao from '../config/database.js'
+import Curso from '../models/modelCursoORM.js'
 
 export  const criarCurso = async(req, res) => {
-    const {cod, curso, ch, tipo} = req.body // desestruturação da requisição    
-    if(!cod || !curso || !ch || !tipo) {
+    const {cod, nome_curso, c_h, tipo} = req.body // desestruturação da requisição    
+    if(!cod || !nome_curso || !c_h || !tipo) {
         return res.status(400).json({mensagem: 'Preencha todos os dados!'})
     }
-    const sql = 'insert into cursos (cod, curso, ch, tipo) values (?, ?, ?, ?);'
-    //sícrono com callback
-    // bdConexao.query(sql, [cod, curso, ch, tipo], (err, curso) => {
-    //     if(err){
-    //         res.status(500).json({mensagem: 'Erro ao cadastrar o curso: ', err})
-    //         return
-    //     }
-    //     res.redirect('/cursos') // redireciona para outra rota 
-    // })
-    //assíncrono com async/await
     try{
-        const [cursoNovo] = await bdConexao.execute(sql, [cod, curso, ch, tipo])
+        const cursoNovo = await Curso.create(req.body)
         console.log(cursoNovo)
-        res.redirect('/cursos')  
+        res.status(200).json({mensagem: 'Curso criado com sucesso!', cursoNovo})  
     }catch(err){
         console.log(err)
         res.status(500).json({ erro: err.message})  
-    }    
+    }
 }
 
 export async function listarCursos (req, res) {
@@ -123,8 +113,8 @@ export const alterarCurso = async (req, res) => {
 }
 
 
-export const cadastroCurso = (req, res) => {
-    res.sendFile(path.resolve('./src/public/html/cadastroCurso.html'))
+export const cadastrarCurso = (req, res) => {
+    res.sendFile(path.resolve('./src/public/html/cadastro_curso.html'))
 }
 
 

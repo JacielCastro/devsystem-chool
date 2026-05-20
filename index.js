@@ -4,6 +4,11 @@ import path from 'path'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
 import bdCenexao from './src/config/database.js'
+import sequelize from './src/config/orm.js'
+import Curso from './src/models/modelCursoORM.js'
+import {sincronizarBD} from './src/config/orm.js'
+
+sincronizarBD()
 
 const app = express() // UTILIZANDO O EXPRESS
 
